@@ -3,9 +3,31 @@
     <head>
         <meta charset="UTF-8">
         <title>Create A Task Page</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
-        
+        <div class="top_level"> <!--Top Level-->
+            <textarea class="input_text_area">Go for a Run!</textarea>
+        </div>
+        <div class="bottom_level"> <!--Bottom Level-->
+            <div class="input_duration"> <!--bottom_level_layer1-->
+                <select> <!--Hour Value-->
+                    <option>1 hr</option>
+                    <option>2 hr</option>
+                    <option>3 hr</option>
+                </select>
+            </div>
+            <div class="input_date_and_time"> <!--bottom_level_layer2-->
+                <select> <!--Date-->
+                    <option>Date 1</option>
+                </select>
+                <select> <!--Time-->
+                    <option>Time 1</option>
+                </select>
+            </div>
+            <textarea class="task_description">Add notes, meeting links or phone numbers...</textarea>
+            <button class="create_task_button">Create Task</button>
+        </div>
     </body>
 </html>
