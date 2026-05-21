@@ -1,0 +1,15 @@
+.dateContainer{
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+
+.activeDate{
+  background-color: red;
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 10px;
+}
