@@ -1,9 +1,10 @@
 import styles from "./week.module.css"
-import { getWeekDatesArray, day_names, turnDateToPath, turnPathToDate } from "../utils"
+import { getWeekDatesArray, day_names, month_names, turnDateToPath, turnPathToDate } from "../utils"
+import { diff } from "node:util";
 
 export default function Week(props: {view: string | undefined, date: string[] | undefined}) {
 
-  function createWeekElemFromDate(date: Date){
+  function createWeekElementsFromDate(date: Date){
     let current_week_dates = getWeekDatesArray(date);
     let weekElements = current_week_dates.map((val, idx) => {
       return (
@@ -20,14 +21,35 @@ export default function Week(props: {view: string | undefined, date: string[] | 
   if(props.date != undefined){
     currentDate = turnPathToDate(props.date);
   }
-  let variable_week_elems = createWeekElemFromDate(currentDate);
+  //after creating a week array check each date and
+  //if a date has a month different than the currentDate then its an in between week
+  //display the earlier month then the later month
+  let weekDateArray = getWeekDatesArray(currentDate);
+  let diffMonth = currentDate.getMonth();
+  for(const weekDate of weekDateArray){
+    if(weekDate.getMonth() != currentDate.getMonth()){
+      diffMonth = weekDate.getMonth();
+      break;
+    }
+  }
+
+  let weekHeader = month_names[currentDate.getMonth()];
+  if(diffMonth > currentDate.getMonth()){
+    weekHeader = month_names[currentDate.getMonth()] + "-" + month_names[diffMonth];
+  }else if(diffMonth < currentDate.getMonth()){
+    weekHeader = month_names[diffMonth] + "-" + month_names[currentDate.getMonth()];
+  }
+
+  let weekElements = createWeekElementsFromDate(currentDate);
   
   return (
     <>
+      <h1>
+        {weekHeader + " " + currentDate.getFullYear()}
+      </h1>
       <div className={styles.dateContainer}>
-        {variable_week_elems}
+        {weekElements}
       </div>
-      
     </>
   );
 }

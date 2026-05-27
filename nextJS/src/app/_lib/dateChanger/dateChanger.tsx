@@ -15,9 +15,6 @@ export default function DateChanger(props: {view: string | undefined, date: stri
     prevDate = getDateFromOffsetAndParams(props.view, prevDate, -1); 
     nextDate = getDateFromOffsetAndParams(props.view, nextDate, 1);
 
-    console.log(prevDate);
-    console.log(nextDate);
-
     let prevHREF = "/";
     let nextHREF = "/";
     switch(props.view){

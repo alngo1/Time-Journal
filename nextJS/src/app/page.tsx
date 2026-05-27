@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <main className={styles.main}>
-        <Week/>
+        <Week view={undefined} date={undefined}/>
       </main>
     </>
   );

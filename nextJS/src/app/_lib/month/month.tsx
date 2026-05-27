@@ -4,19 +4,19 @@ import { getMonthBlockArray, month_names, day_names, turnDateToPath, turnPathToD
 
 export default function Month(props: {view: string | undefined, date: string[] | undefined}) {
 
-  function createMonthElemFromDateAndOffset(date: Date){
+  function createMonthElemFromDate(date: Date){
     let current_month_dates: Date[] = getMonthBlockArray(date);
     let monthElements = current_month_dates.map((val, idx) => {
-    return (
-      <div key={uuidv7()}>
-        {turnDateToPath(val) == turnDateToPath(date) ?
-          <h4 className={styles.activeDate}>{val.getDate()}</h4>
-          :
-          <h4>{val.getDate()}</h4>
-        }
-      </div>
-    );
-  });
+      return (
+        <div key={uuidv7()}>
+          {turnDateToPath(val) == turnDateToPath(date) ?
+            <h4 className={styles.activeDate}>{val.getDate()}</h4>
+            :
+            <h4>{val.getDate()}</h4>
+          }
+        </div>
+      );
+    });
 
     return monthElements;
   }
@@ -30,7 +30,7 @@ export default function Month(props: {view: string | undefined, date: string[] |
   if(props.date != undefined){
     currentDate = turnPathToDate(props.date);
   }
-  let variable_month_elems = createMonthElemFromDateAndOffset(currentDate);
+  let variable_month_elems = createMonthElemFromDate(currentDate);
 
   return (
     <>
