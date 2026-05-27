@@ -1,0 +1,14 @@
+.dayHeaderContainer{
+    display: flex;
+    gap: 10px;
+}
+
+.dateContainer{
+    max-width: 256px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.activeDate{
+    background-color: red;
+}

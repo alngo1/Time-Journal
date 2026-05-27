@@ -9,9 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "ics": "^3.12.0",
     "next": "^16.2.6",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@types/node": "25.9.1",

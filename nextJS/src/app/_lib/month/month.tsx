@@ -1,70 +1,43 @@
-"use client"
-import { useState } from "react"
+import { v7 as uuidv7 } from "uuid"
+import styles from "./month.module.css"
+import { getMonthBlockArray, month_names, day_names, turnDateToPath, turnPathToDate } from "../utils"
 
-import styles from "./week.module.css"
-import { getWeekDatesArray, days_of_the_week } from "../utils"
+export default function Month(props: {view: string | undefined, date: string[] | undefined}) {
 
-export default function Month() {
+  function createMonthElemFromDateAndOffset(date: Date){
+    let current_month_dates: Date[] = getMonthBlockArray(date);
+    let monthElements = current_month_dates.map((val, idx) => {
+    return (
+      <div key={uuidv7()}>
+        {turnDateToPath(val) == turnDateToPath(date) ?
+          <h4 className={styles.activeDate}>{val.getDate()}</h4>
+          :
+          <h4>{val.getDate()}</h4>
+        }
+      </div>
+    );
+  });
 
-  const [weekOffset, setWeekOffset] = useState(0);
-
-  function buttonChangeWeekOffset(offset: number): void{
-    setWeekOffset((prevState: number) => {
-      return prevState + offset
-    });
+    return monthElements;
   }
-
-  function buttonResetWeekOffset(): void{
-    setWeekOffset(0);
-  }
-
-  function createWeekElemFromDateAndOffset(date: Date, offset: number): any{
-    let currentDate = date;
-    currentDate.setDate(currentDate.getDate() + (offset * 7));
-
-    let current_week_dates = getWeekDatesArray(date);
-
-    let weekElements = current_week_dates.map((val, idx) => {
-
-      return (
-        <div key={idx}>
-          <h5>{days_of_the_week[idx].substring(0, 3)}</h5>
-          {val == currentDate.getDate() && offset == 0 ? <h4 className={styles.activeDate}>{val}</h4> : <h4>{val}</h4>}
-        </div>
-      )
-    });
-
-    return weekElements;
-  }
-
-  const today = new Date();
-  let variable_week_elems = createWeekElemFromDateAndOffset(today, weekOffset);
   
+  let dayHeader = day_names.map((val, idx) => {
+    return(
+      <h5 key={idx}>{val.substring(0, 3)}</h5>
+    );
+  });
+  let currentDate = new Date();
+  if(props.date != undefined){
+    currentDate = turnPathToDate(props.date);
+  }
+  let variable_month_elems = createMonthElemFromDateAndOffset(currentDate);
+
   return (
     <>
-      <h1>{today.toDateString()}</h1>
-      <div className={styles.buttonContainer}>
-        <button 
-          className={styles.weekOffsetButtons}
-          onClick={() => {buttonChangeWeekOffset(-1)}}
-        >
-          prev
-        </button>
-        <button 
-          className={styles.weekOffsetButtons}
-          onClick={() => {buttonChangeWeekOffset(1)}}
-        >
-          next
-        </button>
-        <button 
-          className={styles.weekOffsetButtons}
-          onClick={() => {buttonResetWeekOffset()}}
-        >
-          today
-        </button>
-      </div>
+      <h1>{month_names[currentDate.getMonth()] + " " + currentDate.getFullYear()}</h1>
       <div className={styles.dateContainer}>
-        {variable_week_elems}
+        {dayHeader}
+        {variable_month_elems}
       </div>
       
     </>

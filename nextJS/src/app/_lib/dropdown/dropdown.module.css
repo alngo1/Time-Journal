@@ -1,0 +1,21 @@
+.qaContainer{
+    border-radius: 10px;
+    border: none;
+    width: 100px;
+}
+
+.questionAndArrow{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    padding: 0 10px;
+}
+
+.dropdownArrow{
+    user-select: none;
+    transform: rotate(-180deg);
+    transition: all 0.2s ease;
+}

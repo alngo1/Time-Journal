@@ -9,9 +9,8 @@ export function getTotalDatesinMonth(date: Date){
 }
 
 //given a date, create an array for all dates in that date's month's 7x6 block
-export function getMonthBlockArray(date: Date){
+export function getMonthBlockArray(date: Date): Date[]{
   let beginning_of_month_day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-
   let month_block_array = [];
 
   for(let i = 0; i < 42; i++){
@@ -23,16 +22,69 @@ export function getMonthBlockArray(date: Date){
 }
 
 //get the dates of the week from the week of the given date
-export function getWeekDatesArray(date: Date){
+export function getWeekDatesArray(date: Date): Date[]{
   let day_of_date = date.getDay();
-
   let week_dates_array = [];
+
   for(let i = 0; i < 7; i++){
     let ith_date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - day_of_date + i);
-    week_dates_array.push(ith_date.getDate());
+    week_dates_array.push(ith_date);
   }
 
   return week_dates_array;
 }
 
-export const days_of_the_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+//given a date return a path including the year, month, and date (i.e. /2026/05/31 for May 31, 2026)
+export function turnDateToPath(date: Date){
+  let dateString = date.toISOString();
+  let dateArray = dateString.split("-");
+  // dateArray[1] = (Number(dateArray[1]) - 1).toString();
+  dateArray[2] = dateArray[2].substring(0, 2);
+  let path = "/" + dateArray.join("/")
+  return path;
+}
+
+//given a path including the year, month, and date return a date (i.e. pathArr=['2026', '05', '31'])
+export function turnPathToDate(pathArr: string[]){
+  let date = new Date(Number(pathArr[0]), Number(pathArr[1]) - 1, Number(pathArr[2]));
+  return date;
+}
+
+//given the current page view, date array, and an offset number representing some increment from the date
+//return the calculated newdate
+export function getDateFromOffsetAndParams(view: string, date: Date, offset: number){
+  let newDate = date;
+  switch(view){
+      case "day":
+          newDate.setDate(newDate.getDate() + (offset * 1));
+          break;
+      case "week":
+          newDate.setDate(newDate.getDate() + (offset * 7));
+          newDate.setDate(newDate.getDate() + (0-newDate.getDay()));
+          break;
+      case "month":
+          newDate.setMonth(newDate.getMonth() + (offset * 1));
+          newDate.setDate(1);
+          break;
+      case "year":
+          newDate.setFullYear(newDate.getFullYear() + (offset * 1));
+          break;
+      default:
+          break;
+  }
+  return newDate;
+}
+
+//checks if object is empty
+export function isObjEmpty(obj){
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export const day_names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+export const month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
