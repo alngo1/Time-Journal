@@ -39,6 +39,7 @@ class CalendarDate{
         this._month = month; //[0-11] <-- "January-December"
         this._month_day = month_day; //[0-31]
         this._week_day = week_day; //[0-6] <-- "Sunday-Saturday"
+    
     }
 
     //FIX THIS: Consider Automating a method to generate getters and setters for multiple items rather than manually typing out for each element
@@ -69,6 +70,10 @@ class CalendarDate{
     set week_day(value){
         return(this._week_day = value)
     }
+
+    //Other information that would be included in calendar
+    //highlighted True/False
+    //Task Object
 }
 
 //Helper Functions----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,20 +112,38 @@ let starting_epoch = new Date(epoch)
 starting_epoch.setDate(epoch.getDate()-1)
 
 // console.log(starting_epoch)
-let month_january = []
-let newest_day = starting_epoch
+let newest_day = new Date(starting_epoch)
+let month_count = 0
 
+//Generating all calendars
+let month_january = []
 for (let i = 0; i < 6; i++){
     let week = []
     for (let j = 0; j < 7; j++){
         let next_day = update_to_tomorrow(newest_day)
         newest_day = next_day
-        week.push(next_day)
+        week.push(new Date(next_day))
     }
     month_january.push(week)
 }
 
+// console.log(starting_epoch.getDate() + 28)
+newest_day.setDate(newest_day.getDate()-7)
+console.log(newest_day)
+let month_february = []
+for (let i = 0; i < 6; i++){
+    let week = []
+    for (let j = 0; j < 7; j++){
+        let next_day = update_to_tomorrow(newest_day)
+        newest_day = next_day
+        week.push(new Date(next_day))
+    }
+    month_february.push(week)
+}
+
+month_count += 1
 console.log(month_january)
+console.log(month_february)
 
 function generate_month_group(){
     month_array = []
