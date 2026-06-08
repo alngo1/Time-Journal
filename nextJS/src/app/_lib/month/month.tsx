@@ -1,6 +1,7 @@
 import { v7 as uuidv7 } from "uuid"
 import styles from "./month.module.css"
 import { getMonthBlockArray, month_names, day_names, turnDateToPath, turnPathToDate } from "../utils"
+import Link from "next/link";
 
 export default function Month(props: {view: string | undefined, date: string[] | undefined}) {
 
@@ -8,13 +9,13 @@ export default function Month(props: {view: string | undefined, date: string[] |
     let current_month_dates: Date[] = getMonthBlockArray(date);
     let monthElements = current_month_dates.map((val, idx) => {
       return (
-        <div key={uuidv7()}>
+        <Link key={uuidv7()} href={"/day" + turnDateToPath(val)}>
           {turnDateToPath(val) == turnDateToPath(date) ?
             <h4 className={styles.activeDate}>{val.getDate()}</h4>
             :
             <h4>{val.getDate()}</h4>
           }
-        </div>
+        </Link>
       );
     });
 

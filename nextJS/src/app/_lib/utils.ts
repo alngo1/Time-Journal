@@ -86,5 +86,31 @@ export function isObjEmpty(obj){
   return true;
 }
 
+export function validateEmail(email: string){
+  let emailRegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if(emailRegExp.test(email)){
+    return true;
+  }
+  return false;
+}
+
+export function validatePassword(password: string){
+  let passwordRegExp = /.{8}/;
+  if(passwordRegExp.test(password)){
+    return true;
+  }
+  return false;
+}
+
+export function validateEmailPasswordInputs(formData: FormData){
+  let email = formData.get("email") as string;
+  let password = formData.get("password") as string;
+
+  if(validateEmail(email) && validatePassword(password)){
+    return true;
+  }
+  return false;
+}
+
 export const day_names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 export const month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];

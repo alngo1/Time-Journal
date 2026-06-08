@@ -1,6 +1,6 @@
 import { month_names, day_names, getMonthBlockArray, turnDateToPath, turnPathToDate } from "../utils";
 import { v7 as uuidv7 } from "uuid"
-import Month from "../month/month";
+import Link from "next/link";
 import styles from "./year.module.css"
 
 export default function Year(props: {view: string | undefined, date: string[] | undefined}) {
@@ -24,13 +24,13 @@ export default function Year(props: {view: string | undefined, date: string[] | 
             //if date is same as today and elem == month name of the date (ensures not marking overlap with other month blocks)
             let monthDates = currentBlock.map((val, idx) => {
                 return (
-                    <div key={uuidv7()}>
+                    <Link key={uuidv7()} href={"/day" + turnDateToPath(val)}>
                         {turnDateToPath(val) == turnDateToPath(today) && elem == month_names[val.getMonth()] ?
                             <h4 className={styles.activeDate}>{val.getDate()}</h4>
                             :
                             <h4>{val.getDate()}</h4>
                         }
-                    </div>
+                    </Link>
                 );
             });
 

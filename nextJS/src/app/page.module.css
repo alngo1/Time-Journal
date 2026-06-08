@@ -1,0 +1,8 @@
+.login, .signup{
+    border: 2px solid blue;
+    transition: ease .2s all;
+}
+
+.login:hover, .signup:hover{
+    background-color: red;
+}

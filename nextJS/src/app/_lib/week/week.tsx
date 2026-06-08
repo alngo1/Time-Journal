@@ -1,6 +1,6 @@
 import styles from "./week.module.css"
 import { getWeekDatesArray, day_names, month_names, turnDateToPath, turnPathToDate } from "../utils"
-import { diff } from "node:util";
+import Link from "next/link";
 
 export default function Week(props: {view: string | undefined, date: string[] | undefined}) {
 
@@ -8,10 +8,10 @@ export default function Week(props: {view: string | undefined, date: string[] | 
     let current_week_dates = getWeekDatesArray(date);
     let weekElements = current_week_dates.map((val, idx) => {
       return (
-        <div key={idx}>
+        <Link key={idx} href={"/day" + turnDateToPath(val)}>
           <h5>{day_names[idx].substring(0, 3)}</h5>
           {turnDateToPath(val) == turnDateToPath(new Date()) ? <h4 className={styles.activeDate}>{val.getDate()}</h4> : <h4>{val.getDate()}</h4>}
-        </div>
+        </Link>
       )
     });
     return weekElements;
